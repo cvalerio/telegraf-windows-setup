@@ -4,6 +4,8 @@ if(!(Get-Command choco -errorAction SilentlyContinue)){
 
 choco install -y telegraf
 
+net stop telegraf
+
 function Read-Host-With-Default($prompt, $default) {
 	if(($result = Read-Host "$prompt [$default]") -eq ''){
 	return $default
@@ -28,10 +30,8 @@ copy $confdestination "$confdestination.copy"
     $_ -replace '{{DB_HOST}}', $dbhost `
        -replace '{{DB_NAME}}', $dbname `
        -replace '{{DB_USER_NAME}}', $dbusername `
-       -replace '{{DB_USER_NAME}}', $dbpassword `
+       -replace '{{DB_PASS_WORD}}', $dbpassword `
        -replace '{{HOSTNAME}}', $hostname
     } | Set-Content $confdestination
 	
-cd "c:\Program Files\telegraf\"
-telegraf.exe --service install
 net start telegraf
