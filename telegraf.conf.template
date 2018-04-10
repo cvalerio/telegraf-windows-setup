@@ -101,12 +101,8 @@
     ObjectName = "Processor"
     Instances = ["*"]
     Counters = [
-      "% Idle Time",
-      "% Interrupt Time",
-      "% Privileged Time",
       "% User Time",
       "% Processor Time",
-      "% DPC Time",
     ]
     Measurement = "win_cpu"
     # Set to true to include _Total instance when querying for all (*).
@@ -118,12 +114,7 @@
     Instances = ["*"]
     Counters = [
       "% Idle Time",
-      "% Disk Time",
-      "% Disk Read Time",
-      "% Disk Write Time",
-      "Current Disk Queue Length",
       "% Free Space",
-      "Free Megabytes",
     ]
     Measurement = "win_disk"
     # Set to true to include _Total instance when querying for all (*).
@@ -138,6 +129,7 @@
       "Current Disk Queue Length",
       "Disk Reads/sec",
       "Disk Writes/sec",
+      "% Idle Time",
       "% Disk Time",
       "% Disk Read Time",
       "% Disk Write Time",
@@ -146,31 +138,12 @@
 
   [[inputs.win_perf_counters.object]]
     ObjectName = "Network Interface"
-    Instances = ["*"]
+    Instances = ["vmxnet3 Ethernet Adapter"]
     Counters = [
       "Bytes Received/sec",
       "Bytes Sent/sec",
-      "Packets Received/sec",
-      "Packets Sent/sec",
-      "Packets Received Discarded",
-      "Packets Outbound Discarded",
-      "Packets Received Errors",
-      "Packets Outbound Errors",
     ]
     Measurement = "win_net"
-
-  [[inputs.win_perf_counters.object]]
-    ObjectName = "System"
-    Counters = [
-      "Context Switches/sec",
-      "System Calls/sec",
-      "Processor Queue Length",
-      "System Up Time",
-    ]
-    Instances = ["------"]
-    Measurement = "win_system"
-    # Set to true to include _Total instance when querying for all (*).
-    #IncludeTotal=false
 
   [[inputs.win_perf_counters.object]]
     # Example query where the Instance portion must be removed to get data back,
@@ -178,17 +151,6 @@
     ObjectName = "Memory"
     Counters = [
       "Available Bytes",
-      "Cache Faults/sec",
-      "Demand Zero Faults/sec",
-      "Page Faults/sec",
-      "Pages/sec",
-      "Transition Faults/sec",
-      "Pool Nonpaged Bytes",
-      "Pool Paged Bytes",
-      "Standby Cache Reserve Bytes",
-      "Standby Cache Normal Priority Bytes",
-      "Standby Cache Core Bytes",
-
     ]
     # Use 6 x - to remove the Instance bit from the query.
     Instances = ["------"]
@@ -207,24 +169,10 @@
     Measurement = "win_swap"
 
   [[inputs.win_perf_counters.object]]
-    ObjectName = "Network Interface"
-    Instances = ["*"]
-    Counters = [
-      "Bytes Sent/sec",
-      "Bytes Received/sec",
-      "Packets Sent/sec",
-      "Packets Received/sec",
-      "Packets Received Discarded",
-      "Packets Received Errors",
-      "Packets Outbound Discarded",
-      "Packets Outbound Errors",
-    ]
-
-  [[inputs.win_perf_counters.object]]
     # Process metrics, in this case for IIS only
     ObjectName = "Process"
-    Counters = ["% Processor Time","Handle Count","Private Bytes","Thread Count","Virtual Bytes","Working Set"]
-    Instances = ["w3wp"]
+    Counters = ["% Processor Time","Private Bytes","Virtual Bytes","Working Set"]
+    Instances = ["w3wp","BubukPdfGenerator","BubukPreviewGenerator"]
     Measurement = "win_proc"
     #IncludeTotal=false #Set to true to include _Total instance when querying for all (*).
 
