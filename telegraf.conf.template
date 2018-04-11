@@ -111,7 +111,7 @@
   [[inputs.win_perf_counters.object]]
     # Disk times and queues
     ObjectName = "LogicalDisk"
-    Instances = ["*"]
+    Instances = ["C:"]
     Counters = [
       "% Idle Time",
       "% Free Space",
