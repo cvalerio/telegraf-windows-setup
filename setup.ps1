@@ -4,8 +4,6 @@ if(!(Get-Command choco -errorAction SilentlyContinue)){
 
 choco install -y telegraf
 
-net stop telegraf
-
 function Read-Host-With-Default($prompt, $default) {
 	if(($result = Read-Host "$prompt [$default]") -eq ''){
 	return $default
@@ -16,6 +14,8 @@ function Read-Host-With-Default($prompt, $default) {
 
 $conftemplate = '.\telegraf.conf.template'
 $confdestination = 'c:\Program Files\telegraf\telegraf.conf'
+
+wget https://raw.githubusercontent.com/cvalerio/telegraf-windows-setup/master/telegraf.conf.template -outfile $conftemplate
 
 $dbhost = Read-Host-With-Default 'InfluxDB Server' 'http://localhost:8089'
 $dbname = Read-Host-With-Default 'DB name' 'telegraf'
