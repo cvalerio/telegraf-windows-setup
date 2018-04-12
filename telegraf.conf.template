@@ -115,6 +115,7 @@
     Counters = [
       "% Idle Time",
       "% Free Space",
+	  "Free Megabytes",
     ]
     Measurement = "win_disk"
     # Set to true to include _Total instance when querying for all (*).
